@@ -1,4 +1,4 @@
 #!/bin/bash
 PATH=/home/ubuntu/.rvm/gems/jruby-1.7.16/bin:/home/ubuntu/.rvm/gems/jruby-1.7.16@global/bin:/home/ubuntu/.rvm/rubies/jruby-1.7.16/bin:/home/ubuntu/.rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-cd /home/ubuntu/
+cd /home/ubuntu/ds-sinatra-puma/app
 exec setuidgid ubuntu /bin/bash /home/ubuntu/ds-sinatra-puma/app/run.sh > /home/ubuntu/ds-sinatra-puma/app/log/daemontools.log 2>&1
