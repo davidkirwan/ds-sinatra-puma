@@ -9,6 +9,7 @@ $stdout.sync = true
 require 'sinatra/base'
 require 'puma'
 require 'logger'
+require "./lib/rabbitmq_bunny_connection"
 
 
 module Server
@@ -31,6 +32,8 @@ class App < Sinatra::Base
 
   # Options hash
   set :options, {:log => settings.log, :level => settings.level}
+  
+  set :messagebus, RabbitmqBunnyConnection.new
 
   # 404 Controller
   not_found do
@@ -39,6 +42,10 @@ class App < Sinatra::Base
 
   get '/' do
     erb :index
+  end
+  
+  get '/ds/demo/:message/:key' do |message, key|
+    settings.messagebus.publish_messages(message, key)
   end
 
 
