@@ -46,6 +46,7 @@ class App < Sinatra::Base
   
   get '/ds/demo/:key/:message' do |key, message|
     settings.messagebus.publish_messages(message, key)
+    "Publishing[#{key}]: #{message}"
   end
 
 
