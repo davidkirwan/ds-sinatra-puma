@@ -44,7 +44,7 @@ class App < Sinatra::Base
     erb :index
   end
   
-  get '/ds/demo/:key/:message' do |message, key|
+  get '/ds/demo/:key/:message' do |key, message|
     settings.messagebus.publish_messages(message, key)
   end
 
