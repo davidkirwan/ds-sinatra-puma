@@ -1,0 +1,4 @@
+#!/bin/bash
+PATH=/home/ubuntu/.rvm/gems/jruby-1.7.11/bin:/home/ubuntu/.rvm/gems/jruby-1.7.11@global/bin:/home/ubuntu/.rvm/rubies/jruby-1.7.11/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/ubuntu/.rvm/bin:/home/ubuntu/.rvm/bin
+cd /home/ubuntu/
+exec setuidgid ubuntu /home/ubuntu/applications/zookeeper-3.3.6/bin/zkServer.sh start-foreground > /home/ubuntu/data/zookeeper/logs/storm-zookeeper.log 2>&1

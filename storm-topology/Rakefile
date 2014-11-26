@@ -1,0 +1,100 @@
+require 'rspec/core/rake_task'
+
+desc "run specs"
+RSpec::Core::RakeTask.new(:spec)
+
+task :default => :spec
+
+
+
+namespace :redstorm do
+  
+  desc "Just build the Redstorm Apache Storm Topology jar"
+  task :build => [:install, :bundle, :gem, :jar] do
+    puts "The topology is ready to deploy."
+  end
+  
+  desc "Synchronise then build the Redstorm Apache Storm Topology jar"
+  task :sync => [:git, :install, :bundle, :gem, :jar] do
+    puts "The topology is in sync ready to deploy."
+  end 
+  
+  task :git do
+    puts "Executing:> git pull origin master"
+    
+    argline = "git pull origin master"
+    
+    sh "#{argline}" do |ok, status|
+      ok or fail "Command failed with status (#{status.exitstatus})"
+    end
+  end
+  
+  task :install do
+    puts "Executing:> redstorm install"
+    
+    argline = "redstorm install"
+    
+    sh "#{argline}" do |ok, status|
+      ok or fail "Command failed with status (#{status.exitstatus})"
+    end
+  end 
+  
+  task :bundle do
+    puts "Executing:> bundle install"
+    
+    argline = "bundle install"
+    
+    sh "#{argline}" do |ok, status|
+      ok or fail "Command failed with status (#{status.exitstatus})"
+    end
+  end
+  
+  task :gem do
+    puts "Executing:> bundle exec redstorm bundle finesce"
+    
+    argline = "bundle exec redstorm bundle dsdemo"
+    
+    sh "#{argline}" do |ok, status|
+      ok or fail "Command failed with status (#{status.exitstatus})"
+    end
+  end
+  
+  task :jar do
+    puts "Executing:> bundle exec redstorm jar lib/finesce_topology/"
+    
+    argline = "bundle exec redstorm jar lib/"
+    
+    sh "#{argline}" do |ok, status|
+      ok or fail "Command failed with status (#{status.exitstatus})"
+    end
+  end
+  
+  
+  
+  namespace :deploy do
+    
+    desc "Interface for deploying the Redstorm Topology locally"
+    task :local do
+      puts "Executing:> bundle exec redstorm local <topology>"
+      
+      argline = "bundle exec redstorm local lib/dsdemo_topology.rb"
+      
+      sh "#{argline}" do |ok, status|
+        ok or fail "Command failed with status (#{status.exitstatus})"
+      end
+    end
+    
+    desc "Interface for deploying the Redstorm Topology to the cluster"
+    task :cluster do
+      puts "Executing:> bundle exec redstorm cluster <topology>"
+      
+      argline = "bundle exec redstorm cluster lib/dsdemo_topology.rb"
+      
+      sh "#{argline}" do |ok, status|
+        ok or fail "Command failed with status (#{status.exitstatus})"
+      end
+    end
+  end # End of deploy namespace
+    
+end # End of redstorm namespace
+

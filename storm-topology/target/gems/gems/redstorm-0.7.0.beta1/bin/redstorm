@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+unless RUBY_PLATFORM =~ /java/
+  puts("error: RedStorm requires JRuby. Check http://jruby.org/ or https://github.com/sstephenson/rbenv or https://rvm.io/")
+  exit(1)
+end
+
+require 'rubygems'
+require 'rake'
+
+begin
+  # will work from gem, since lib dir is in gem require_paths
+  require 'red_storm/application'
+rescue LoadError
+  # will work within RedStorm dev project
+  $:.unshift './lib'
+  require 'red_storm/application'
+end
+
+RedStorm::Application.run(ARGV.dup)

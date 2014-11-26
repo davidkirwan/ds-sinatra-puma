@@ -1,0 +1,2 @@
+0 0,3,12,18 * * * /bin/rm /home/ubuntu/data/zookeeper/version-2/log.*
+0 0,3,12,18 * * * /bin/rm /home/ubuntu/data/zookeeper/version-2/snapshot.*
