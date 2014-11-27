@@ -1,7 +1,7 @@
 require 'red_storm'
 require 'json'
 require 'bunny'
-require "./rabbitmq_bunny_connection"
+require "rabbitmq_bunny_connection"
 
 
 class RedstormRabbitmqSpout < RedStorm::DSL::Spout

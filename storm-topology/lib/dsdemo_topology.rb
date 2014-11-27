@@ -1,7 +1,7 @@
 require 'red_storm'
-require "./rabbitmq_bunny_connection"
-require "./redstorm_rabbitmq_spout"
-require "./message_parser_bolt"
+require "rabbitmq_bunny_connection"
+require "redstorm_rabbitmq_spout"
+require "message_parser_bolt"
 
 
 class DsdemoTopology < RedStorm::DSL::Topology
