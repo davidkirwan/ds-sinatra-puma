@@ -20,19 +20,33 @@ class RabbitmqBunnyConnection
       :mbuser=>'dsdemo',
       :mbpassword=>'dsdemo',
       :topic=>'ds.demo',
-      :queue=>'incomming.queue',
-      :binding_key=>'binding.key'
+      :incomming_queue=>'incomming.queue',
+      :incomming_binding_key=>'binding.key',
+      :outgoing_queue=>'outgoing.queue',
+      :outgoing_binding_key_1=>'tag.binding.key',
+      :outgoing_binding_key_2=>'user.binding.key'
     }
     @datablocks = Array.new
 
     # Setup the MB connection
     @connection = make_connection(@options)
+  end
 
+
+  def configure_incomming_channel()
     @ch = @connection.create_channel
     @x = @ch.topic(@options[:topic], :durable=>true)
     @ch.prefetch(100)
-    @q = @ch.queue(@options[:queue], :exclusive => true, :durable=>false, :autodelete=>true)
-    @q.bind(@x, :routing_key=>@options[:binding_key])
+    @q = @ch.queue(@options[:incomming_queue], :exclusive => true, :durable=>false, :autodelete=>true)
+    @q.bind(@x, :routing_key=>@options[:incomming_binding_key])
+  end
+  
+  def configure_outgoing_channel()
+    @ch = @connection.create_channel
+    @x = @ch.topic(@options[:topic], :durable=>true)
+    @ch.prefetch(100)
+    @q = @ch.queue(@options[:incomming_queue], :exclusive => true, :durable=>false, :autodelete=>true)
+    @q.bind(@x, :routing_key=>@options[:incomming_binding_key])
   end
 
 

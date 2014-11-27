@@ -41,6 +41,7 @@ class RedstormRabbitmqSpout < RedStorm::DSL::Spout
     
     # Setup the MB connection
     @connection = RabbitmqBunnyConnection.new
+    @connection.configure_incomming_channel()
   end
 
 

@@ -3,7 +3,7 @@ require 'rake'
 
 Gem::Specification.new do |s|
   s.name = 'ds-demo-gem'
-  s.version = '0.1.0'
+  s.version = '0.1.1'
   s.date = '2014-11-26'
   s.summary = 'Distributed Systems Demo Gem'
   s.description = <<-DESCRIPTION
