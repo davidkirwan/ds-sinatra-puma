@@ -9,7 +9,7 @@ $stdout.sync = true
 require 'sinatra/base'
 require 'puma'
 require 'logger'
-require 'ds-demo-gem'
+require './lib/rabbitmq_bunny_connection'
 
 
 module Server

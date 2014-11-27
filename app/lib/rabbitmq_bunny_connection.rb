@@ -1,3 +1,10 @@
+####################################################################################################
+# @author       David Kirwan https://github.com/davidkirwan/ds-sinatra-puma
+# @description  Distributed Systems Demo Gem
+#
+# @date         2014-11-26
+####################################################################################################
+
 require 'json'
 require 'bunny'
 
@@ -13,19 +20,39 @@ class RabbitmqBunnyConnection
       :mbuser=>'dsdemo',
       :mbpassword=>'dsdemo',
       :topic=>'ds.demo',
-      :queue=>'incomming.queue',
-      :binding_key=>'binding.key'
+      :incomming_queue=>'incomming.queue',
+      :incomming_binding_key=>'binding.key',
+      :outgoing_queue_1=>'tag.outgoing.queue',
+      :outgoing_queue_2=>'user.outgoing.queue',
+      :outgoing_queue_3=>'word.outgoing.queue',
+      :outgoing_binding_key_1=>'tag.binding.key',
+      :outgoing_binding_key_2=>'user.binding.key',
+      :outgoing_binding_key_3=>'word.binding.key'
     }
     @datablocks = Array.new
 
     # Setup the MB connection
     @connection = make_connection(@options)
-
     @ch = @connection.create_channel
     @x = @ch.topic(@options[:topic], :durable=>true)
     @ch.prefetch(100)
-    @q = @ch.queue(@options[:queue], :exclusive => false, :durable=>true, :autodelete=>false)
-    @q.bind(@x, :routing_key=>@options[:binding_key])
+  end
+
+
+  def configure_incomming_channel()
+    @q = @ch.queue(@options[:incomming_queue], :exclusive => true, :durable=>false, :autodelete=>true)
+    @q.bind(@x, :routing_key=>@options[:incomming_binding_key])
+  end
+  
+  def configure_outgoing_channel()
+    @q_1 = @ch.queue(@options[:outgoing_queue_1], :exclusive => true, :durable=>false, :autodelete=>true)
+    @q_1.bind(@x, :routing_key=>@options[:outgoing_binding_key_1])
+    
+    @q_2 = @ch.queue(@options[:outgoing_queue_2], :exclusive => true, :durable=>false, :autodelete=>true)
+    @q_2.bind(@x, :routing_key=>@options[:outgoing_binding_key_2])
+    
+    @q_3 = @ch.queue(@options[:outgoing_queue_3], :exclusive => true, :durable=>false, :autodelete=>true)
+    @q_3.bind(@x, :routing_key=>@options[:outgoing_binding_key_3])
   end
 
 
@@ -33,6 +60,9 @@ class RabbitmqBunnyConnection
     retries = 3
     begin
       @q.delete
+      @q_1.delete
+      @q_2.delete
+      @q_3.delete
     rescue
       retries -= 1
       if retries > 0
@@ -100,7 +130,6 @@ words = ["the", "quick", "brown", "fox", "jumped", "over", "the", "lazy", "dog"]
   connection.publish_messages(words[i], "binding.key")
 end
 
-sleep(20)
 puts connection.pop_messages().inspect
 connection.close
 =end
