@@ -11,7 +11,10 @@ class WordAggregatorBolt < RedStorm::DSL::Bolt
     @connection = RabbitmqBunnyConnection.new
     @connection.configure_outgoing_channel()
     
-    @tick = get_minute(Time.now.getutc)
+    @now = Time.now.getutc
+    @previous_slot = get_previous_timeslot(@now)
+    @next_slot = get_timeslot(@now)
+    @tick = get_update_slot(@previous_slot, @next_slot, @now) # Topology generates data every 60 seconds
   end
 
   on_receive(:emit => false) do |tuple|
