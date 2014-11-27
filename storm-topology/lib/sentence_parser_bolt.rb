@@ -10,8 +10,10 @@ class SentenceParserBolt < RedStorm::DSL::Bolt
     begin
       payload = tuple["datablock"]
       
-      word_array = parse_sentence(payload)
-      unanchored_emit(word_array)
+      unless payload == ""
+        word_array = parse_sentence(payload)
+        unanchored_emit(word_array)
+      end
 
     rescue Exception => e
       # raise e

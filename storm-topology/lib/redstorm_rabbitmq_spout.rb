@@ -18,7 +18,7 @@ class RedstormRabbitmqSpout < RedStorm::DSL::Spout
       
       if payload == "" or payload.class == NilClass 
         #raise Exception, "Payload empty, or Payload nil"
-        #""
+        ""
       else
 
         payload
