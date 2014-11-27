@@ -1,6 +1,7 @@
 require 'red_storm'
 require 'json'
 require 'time'
+require "rabbitmq_bunny_connection"
 
 
 class WordAggregatorBolt < RedStorm::DSL::Bolt
