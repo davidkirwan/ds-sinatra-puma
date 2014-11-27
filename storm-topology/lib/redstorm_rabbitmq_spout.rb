@@ -16,11 +16,7 @@ class RedstormRabbitmqSpout < RedStorm::DSL::Spout
         payload = @datablocks.pop
       end
       
-      if payload == "" or payload.class == NilClass 
-        #raise Exception, "Payload empty, or Payload nil"
-        #""
-      else
-
+      unless payload == "" or payload.class == NilClass 
         payload
       end
       

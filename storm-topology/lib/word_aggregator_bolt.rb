@@ -48,6 +48,11 @@ class WordAggregatorBolt < RedStorm::DSL::Bolt
           
           @connection.publish_messages(@tag_hash.to_json, "tag.binding.key")
           @connection.publish_messages(@user_hash.to_json, "user.binding.key")
+          @connection.publish_messages(@word_hash.to_json, "word.binding.key")
+          
+          @tag_hash.clear
+          @user_hash.clear
+          @word_hash.clear
         end
   
         #unanchored_emit(i)

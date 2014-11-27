@@ -24,8 +24,10 @@ class RabbitmqBunnyConnection
       :incomming_binding_key=>'binding.key',
       :outgoing_queue_1=>'tag.outgoing.queue',
       :outgoing_queue_2=>'user.outgoing.queue',
+      :outgoing_queue_3=>'word.outgoing.queue',
       :outgoing_binding_key_1=>'tag.binding.key',
-      :outgoing_binding_key_2=>'user.binding.key'
+      :outgoing_binding_key_2=>'user.binding.key',
+      :outgoing_binding_key_3=>'word.binding.key'
     }
     @datablocks = Array.new
 
@@ -48,6 +50,9 @@ class RabbitmqBunnyConnection
     
     @q_2 = @ch.queue(@options[:outgoing_queue_2], :exclusive => true, :durable=>false, :autodelete=>true)
     @q_2.bind(@x, :routing_key=>@options[:outgoing_binding_key_2])
+    
+    @q_3 = @ch.queue(@options[:outgoing_queue_3], :exclusive => true, :durable=>false, :autodelete=>true)
+    @q_3.bind(@x, :routing_key=>@options[:outgoing_binding_key_3])
   end
 
 
@@ -57,6 +62,7 @@ class RabbitmqBunnyConnection
       @q.delete
       @q_1.delete
       @q_2.delete
+      @q_3.delete
     rescue
       retries -= 1
       if retries > 0
