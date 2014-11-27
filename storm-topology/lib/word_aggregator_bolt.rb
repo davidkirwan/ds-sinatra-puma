@@ -22,10 +22,10 @@ class WordAggregatorBolt < RedStorm::DSL::Bolt
       payload = tuple["datablock"]
       
       unless payload == ""
-        if @word_hash.has_key?(word)
-          @word_hash[word] += 1
+        if @word_hash.has_key?(payload)
+          @word_hash[payload] += 1
         else
-          @word_hash[word] = 1
+          @word_hash[payload] = 1
         end
         
         @word_hash.each do |k, v|
@@ -62,23 +62,6 @@ class WordAggregatorBolt < RedStorm::DSL::Bolt
     @connection.close
   end
   
-  
-  def parse_sentence(sentence)
-    word_array, filtered_word_array = Array.new
-    word_array = sentence.strip.split(" ")
-    
-    word_array.each do |i|
-      filtered_word_array << filter_word(i)
-    end
-    
-    return filtered_word_array
-  end
-  
-  def filter_word(word)
-    word = word.gsub(/\,/, '').strip.downcase
-    
-    return word
-  end
   
   def get_timeslot(now)
     begin
