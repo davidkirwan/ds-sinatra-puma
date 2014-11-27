@@ -11,10 +11,7 @@ class MessageParserBolt < RedStorm::DSL::Bolt
       payload = tuple["datablock"]
       
       sentence_array = parse_paragraph(payload)
-      
-      sentence_array.each do |i|
-        unanchored_emit(i)  
-      end
+      unanchored_emit(sentence_array)  
 
     rescue Exception => e
       # raise e
