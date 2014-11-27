@@ -28,7 +28,7 @@ class SentenceParserBolt < RedStorm::DSL::Bolt
     word_array = sentence.strip.split(" ")
     
     word_array.each do |i|
-      unless i.nil or i == ""
+      unless i.nil? or i == ""
         filtered_word_array << filter_word(i)
       end
     end
