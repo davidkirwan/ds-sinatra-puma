@@ -12,7 +12,10 @@ class SentenceParserBolt < RedStorm::DSL::Bolt
       
       unless payload == ""
         word_array = parse_sentence(payload)
-        unanchored_emit(word_array)
+        
+        word_array.each do |i|
+          unanchored_emit(i)
+        end
       end
 
     rescue Exception => e
