@@ -24,12 +24,14 @@ class SentenceParserBolt < RedStorm::DSL::Bolt
   end
   
   def parse_sentence(sentence)
-    word_array, filtered_word_array = Array.new
+    filtered_word_array = Array.new
     word_array = sentence.strip.split(" ")
     
     word_array.each do |i|
       unless i.nil? or i == ""
-        filtered_word_array << filter_word(i)
+        word = filter_word(i)
+        
+        unless word.nil? or word == "" then filtered_word_array << word; end
       end
     end
     
