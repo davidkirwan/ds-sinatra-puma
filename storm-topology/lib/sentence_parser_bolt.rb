@@ -11,10 +11,7 @@ class SentenceParserBolt < RedStorm::DSL::Bolt
       payload = tuple["datablock"]
       
       word_array = parse_sentence(payload)
-      
-      word_array.each do |i|
-        unanchored_emit(i)  
-      end
+      unanchored_emit(word_array)
 
     rescue Exception => e
       # raise e
