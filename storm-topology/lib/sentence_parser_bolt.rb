@@ -19,7 +19,7 @@ class SentenceParserBolt < RedStorm::DSL::Bolt
       end
 
     rescue Exception => e
-      # raise e
+      raise e
     end
   end
   
