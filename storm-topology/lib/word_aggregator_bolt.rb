@@ -53,9 +53,9 @@ class WordAggregatorBolt < RedStorm::DSL::Bolt
           @tag_hash.clear
           @user_hash.clear
           @word_hash.clear
+          
+          #unanchored_emit("")
         end
-  
-        #unanchored_emit(i)
       end  
 
     rescue Exception => e

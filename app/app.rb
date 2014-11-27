@@ -9,7 +9,7 @@ $stdout.sync = true
 require 'sinatra/base'
 require 'puma'
 require 'logger'
-require "./lib/rabbitmq_bunny_connection"
+require 'ds-demo-gem'
 
 
 module Server
@@ -34,6 +34,7 @@ class App < Sinatra::Base
   set :options, {:log => settings.log, :level => settings.level}
   
   set :messagebus, RabbitmqBunnyConnection.new
+  settings.messagebus.configure_outgoing_channel()
 
   # 404 Controller
   not_found do
@@ -44,9 +45,15 @@ class App < Sinatra::Base
     erb :index
   end
   
-  get '/ds/demo/:key/:message' do |key, message|
-    settings.messagebus.publish_messages(message, key)
-    "Publishing[#{key}]: #{message}"
+  post '/ds/demo' do
+    unless params[:key].nil? or params[:message].nil?
+      key = params[:key]
+      message = params[:message]
+      settings.messagebus.publish_messages(message, key)
+      [200, {"Content-Type" => "text/plain"},["Publishing[#{key}]: #{message}"]]
+    else
+      [400, {"Content-Type" => "text/plain"},["400 Bad Request"]]
+    end
   end
 
 
