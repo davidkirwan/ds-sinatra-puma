@@ -2,7 +2,7 @@ require 'red_storm'
 require "rabbitmq_bunny_connection"
 require "redstorm_rabbitmq_spout"
 require "message_parser_bolt"
-require "sentense_parser_bolt"
+require "sentence_parser_bolt"
 require "word_aggregator_bolt"
 
 
