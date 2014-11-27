@@ -4,6 +4,7 @@ require "redstorm_rabbitmq_spout"
 require "message_parser_bolt"
 require "sentence_parser_bolt"
 require "word_aggregator_bolt"
+require "rabbitmq_bunny_connector"
 
 
 class DsdemoTopology < RedStorm::DSL::Topology
