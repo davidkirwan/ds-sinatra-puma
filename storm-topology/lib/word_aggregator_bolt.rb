@@ -9,6 +9,7 @@ class WordAggregatorBolt < RedStorm::DSL::Bolt
     @word_hash, @user_hash, @tag_hash = Hash.new
     
     @connection = RabbitmqBunnyConnection.new
+    @connection.configure_outgoing_channel()
   end
 
   on_receive(:emit => false) do |tuple|

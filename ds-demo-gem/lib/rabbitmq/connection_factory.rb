@@ -22,7 +22,8 @@ class RabbitmqBunnyConnection
       :topic=>'ds.demo',
       :incomming_queue=>'incomming.queue',
       :incomming_binding_key=>'binding.key',
-      :outgoing_queue=>'outgoing.queue',
+      :outgoing_queue_1=>'tag.outgoing.queue',
+      :outgoing_queue_2=>'user.outgoing.queue',
       :outgoing_binding_key_1=>'tag.binding.key',
       :outgoing_binding_key_2=>'user.binding.key'
     }
@@ -30,23 +31,23 @@ class RabbitmqBunnyConnection
 
     # Setup the MB connection
     @connection = make_connection(@options)
+    @ch = @connection.create_channel
+    @x = @ch.topic(@options[:topic], :durable=>true)
+    @ch.prefetch(100)
   end
 
 
   def configure_incomming_channel()
-    @ch = @connection.create_channel
-    @x = @ch.topic(@options[:topic], :durable=>true)
-    @ch.prefetch(100)
     @q = @ch.queue(@options[:incomming_queue], :exclusive => true, :durable=>false, :autodelete=>true)
     @q.bind(@x, :routing_key=>@options[:incomming_binding_key])
   end
   
   def configure_outgoing_channel()
-    @ch = @connection.create_channel
-    @x = @ch.topic(@options[:topic], :durable=>true)
-    @ch.prefetch(100)
-    @q = @ch.queue(@options[:incomming_queue], :exclusive => true, :durable=>false, :autodelete=>true)
-    @q.bind(@x, :routing_key=>@options[:incomming_binding_key])
+    @q_1 = @ch.queue(@options[:outgoing_queue_1], :exclusive => true, :durable=>false, :autodelete=>true)
+    @q_1.bind(@x, :routing_key=>@options[:outgoing_binding_key_1])
+    
+    @q_2 = @ch.queue(@options[:outgoing_queue_2], :exclusive => true, :durable=>false, :autodelete=>true)
+    @q_2.bind(@x, :routing_key=>@options[:outgoing_binding_key_2])
   end
 
 
@@ -54,6 +55,8 @@ class RabbitmqBunnyConnection
     retries = 3
     begin
       @q.delete
+      @q_1.delete
+      @q_2.delete
     rescue
       retries -= 1
       if retries > 0
