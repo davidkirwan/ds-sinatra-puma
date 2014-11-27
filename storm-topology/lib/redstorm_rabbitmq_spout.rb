@@ -32,15 +32,7 @@ class RedstormRabbitmqSpout < RedStorm::DSL::Spout
   
   
   on_close do
-    retries = 3
-    begin
-      @connection.close
-    rescue
-      retries -= 1
-      if retries > 0
-        retry
-      end
-    end
+    @connection.close
   end
   
 
@@ -54,18 +46,3 @@ class RedstormRabbitmqSpout < RedStorm::DSL::Spout
 
 # End of the RedstormRabbitmqSpout class
 end
-
-
-=begin
-puts connection.connected?
-
-words = ["the", "quick", "brown", "fox", "jumped", "over", "the", "lazy", "dog"]
-
-0.upto(words.size-1) do |i|
-  connection.publish_messages(words[i], "binding.key")
-end
-
-sleep(20)
-puts connection.pop_messages().inspect
-connection.close
-=end

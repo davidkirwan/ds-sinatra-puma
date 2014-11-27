@@ -100,7 +100,6 @@ words = ["the", "quick", "brown", "fox", "jumped", "over", "the", "lazy", "dog"]
   connection.publish_messages(words[i], "binding.key")
 end
 
-sleep(20)
 puts connection.pop_messages().inspect
 connection.close
 =end

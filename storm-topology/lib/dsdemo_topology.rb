@@ -1,6 +1,7 @@
 require 'red_storm'
 require "./rabbitmq_bunny_connection"
 require "./redstorm_rabbitmq_spout"
+require "./message_parser_bolt"
 
 
 class DsdemoTopology < RedStorm::DSL::Topology
@@ -8,11 +9,28 @@ class DsdemoTopology < RedStorm::DSL::Topology
   spout RedstormRabbitmqSpout, :parallelism => 1 do
     output_fields :datablock
   end
+  
+  bolt MessageParserBolt, :parallelism => 1 do
+    output_fields :datablock
+    source RedstormRabbitmqSpout, :fields => ["datablock"]
+  end
+  
+  bolt SentenceParserBolt, :parallelism => 1 do
+    output_fields :datablock
+    source MessageParserBolt, :fields => ["datablock"]
+  end
+  
+  bolt WordAggregatorBolt, :parallelism => 1 do
+    output_fields :datablock
+    source SentenceParserBolt, :fields => ["datablock"]
+  end
+  
+#####################################################################
 
   configure do |env|
     debug false
     max_task_parallelism 1
-    num_workers 2
+    num_workers 4
     max_spout_pending 1000
   end
 
