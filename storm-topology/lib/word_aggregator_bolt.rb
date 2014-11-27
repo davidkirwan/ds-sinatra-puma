@@ -6,7 +6,9 @@ require 'ds-demo-gem'
 
 class WordAggregatorBolt < RedStorm::DSL::Bolt
   on_init do
-    @word_hash, @user_hash, @tag_hash = Hash.new
+    @word_hash = Hash.new
+    @user_hash = Hash.new
+    @tag_hash = Hash.new
     
     @connection = RabbitmqBunnyConnection.new
     @connection.configure_outgoing_channel()
