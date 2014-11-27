@@ -1,6 +1,5 @@
 require 'red_storm'
 require 'ds-demo-gem'
-require "rabbitmq_bunny_connection"
 require "redstorm_rabbitmq_spout"
 require "message_parser_bolt"
 require "sentence_parser_bolt"
