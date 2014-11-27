@@ -11,7 +11,6 @@ class WordAggregatorBolt < RedStorm::DSL::Bolt
     @tag_hash = Hash.new
     
     @connection = RabbitmqBunnyConnection.new
-    @connection.configure_outgoing_channel()
     
     @now = Time.now.getutc
     @previous_slot = get_previous_timeslot(@now)
