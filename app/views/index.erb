@@ -1,8 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Distributed Systems Sample Application</title>
+    
     <!-- Latest compiled and minified jQuery -->
     <script src="/js/jquery-1.11.0.min.js"></script>
     <!-- Latest compiled and minified CSS -->
@@ -12,16 +14,47 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="/js/bootstrap.min.js"></script>
 
-    <title>Distributed Systems Sample Application</title>
-  </head>
+    <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
 
-  <body>
+<body>
     <div id="content">
-      <FORM action="/ds/demo" method="post">
-          <INPUT type="text" name="key" id="key"><BR>
-          <INPUT type="textarea" name="message" id="message"><BR>
-          <INPUT type="submit" name="submit" value="Send">
-      </FORM>
+        <FORM action="/ds/demo" method="post" class="youNeedME">
+            <h1>A simple Form 
+        <span>Please fill all the texts in the fields.</span>
+    </h1>
+            <label>
+                <span>Key :</span><br>
+                <input id="key" type="text" name="key" method="post" />
+            </label>
+            <br>
+            <label>
+                <span>Message&nbsp;&nbsp;&nbsp; :</span><br>
+                <textarea id="message" name="message" placeholder="Your Message to Us"></textarea>
+            </label>
+            <label>
+                <label>
+                    <span>&nbsp;</span> 
+                    <input type="button" class="button" value="Submit" />
+                </label>
+        </form>
+        <table>
+            <th colspan="2">Asdf</th>
+            <tr>
+                <td>gkg</td>
+                <td>kjgjkg</td>
+            </tr>
+
+            <tr>
+                <td>kjgkjgjkg</td>
+                <td>jkkjgkjg</td>
+            </tr>
+            <tr>
+                <td>kjgkjgjkg</td>
+                <td>jkkjgkjg</td>
+            </tr>
+        </table>
     </div>
-  </body>
+</body>
+
 </html>
