@@ -1,0 +1,36 @@
+####################################################################################################
+# @author       David Kirwan https://github.com/davidkirwan/ds-sinatra-puma
+# @description  Distributed Systems Demo Gem
+#
+# @date         2014-11-26
+####################################################################################################
+# Imports
+require 'logger'
+require 'fileutils'
+
+
+begin
+  require 'bundler'
+  require 'rspec/core/rake_task'
+  
+  Bundler::GemHelper.install_tasks
+  RSpec::Core::RakeTask.new(:spec)
+  
+rescue Exception => e
+  raise e
+end
+
+
+# Set the default task to print the menu
+task :default => 'menu'
+
+
+task :menu do
+  puts <<-GREETING
+TODO
+GREETING
+end
+
+task :spec do
+  
+end

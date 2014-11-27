@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 
 group :dsdemo do
+  gem 'ds-demo-gem'
   gem 'redstorm', '0.7.0.beta1'
   gem 'json'
   gem 'bunny', '~> 1.1.0'
