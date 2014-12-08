@@ -45,13 +45,13 @@ class RabbitmqBunnyConnection
   end
   
   def configure_outgoing_channel()
-    @q_1 = @ch.queue(@options[:outgoing_queue_1], :exclusive => true, :durable=>false, :autodelete=>true)
+    @q_1 = @ch.queue(@options[:outgoing_queue_1], :exclusive => false, :durable=>false, :autodelete=>true)
     @q_1.bind(@x, :routing_key=>@options[:outgoing_binding_key_1])
     
-    @q_2 = @ch.queue(@options[:outgoing_queue_2], :exclusive => true, :durable=>false, :autodelete=>true)
+    @q_2 = @ch.queue(@options[:outgoing_queue_2], :exclusive => false, :durable=>false, :autodelete=>true)
     @q_2.bind(@x, :routing_key=>@options[:outgoing_binding_key_2])
     
-    @q_3 = @ch.queue(@options[:outgoing_queue_3], :exclusive => true, :durable=>false, :autodelete=>true)
+    @q_3 = @ch.queue(@options[:outgoing_queue_3], :exclusive => false, :durable=>false, :autodelete=>true)
     @q_3.bind(@x, :routing_key=>@options[:outgoing_binding_key_3])
   end
 
