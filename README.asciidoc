@@ -1,5 +1,5 @@
 == Distributed Systems 2014 ==
-A Ruby application built in Sinatra/Puma for the Distributed Systems 2014 module from the
+A Ruby application built in Ruby Sinatra/Puma, RabbitMQ, Storm for the Distributed Systems 2014 module from the
 MSc in Computing at the Waterford Insitute of Technology, Ireland
 
 === Licence ===
